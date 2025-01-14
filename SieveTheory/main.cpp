@@ -30,6 +30,20 @@ static bool test_minus()
 	return a == d;
 }
 
+static bool test_cross()
+{
+	int a = 1 + rand();
+	int b = 1 + rand();
+
+	std::string sa = std::to_string(a);
+	std::string sb = std::to_string(b);
+
+	std::string sm = Sieve::modmult(sa, sb, "1000000000");
+	int d = std::stoi(sm);
+
+	return a * b == d;
+}
+
 int main()
 {
 	srand(time(NULL));
@@ -45,6 +59,12 @@ int main()
 		if (!test_minus())
 		{
 			std::cout << "Minus Test Failed!" << std::endl;
+			return -1;
+		}
+
+		if (!test_cross())
+		{
+			std::cout << "Cross Test Failed!" << std::endl;
 			return -1;
 		}
 	}
