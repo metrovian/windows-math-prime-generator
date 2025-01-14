@@ -17,22 +17,22 @@ std::string Sieve::modmult(const std::string& _num, const std::string& _mum, con
 
 	for (uint64_t i = 0; i < nlen; ++i)
 	{
-		char num = _num[nlen - i - 1] - '0';
-
 		req.resize(mlen + 1, '0');
 
 		for (uint64_t j = 0; j < mlen; ++j)
 		{
+			char num = _num[nlen - i - 1] - '0';
 			char mum = _mum[mlen - j - 1] - '0';
+
 			char res = num * mum;
 
-			req[req.length() - j - 1] += res % 10;
-			req[req.length() - j - 2] += res / 10;
+			req[mlen - j] += res % 10;
+			req[mlen - j - 1] += res / 10;
 
-			if (req[req.length() - j - 1] > '9')
+			if (req[mlen - j] > '9')
 			{
-				req[req.length() - j - 1] -= 10;
-				req[req.length() - j - 2] += 1;
+				req[mlen - j] -= 10;
+				req[mlen - j - 1] += 1;
 			}
 		}
 
