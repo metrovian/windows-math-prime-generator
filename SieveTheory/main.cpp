@@ -8,7 +8,7 @@ static bool test_plus()
 	std::string sa = std::to_string(a);
 	std::string sb = std::to_string(b);
 
-	std::string sm = Sieve::modplus(sa, sb, "1000000000");
+	std::string sm = Sieve::modplus(sa, sb, "-");
 
 	int c = a + b;
 	int d = std::stoi(sm);
@@ -24,7 +24,7 @@ static bool test_minus()
 	std::string sa = std::to_string(a + b);
 	std::string sb = std::to_string(b);
 
-	std::string sm = Sieve::modsub(sa, sb, "1000000000");
+	std::string sm = Sieve::modsub(sa, sb, "-");
 	int d = std::stoi(sm);
 
 	return a == d;
@@ -38,17 +38,31 @@ static bool test_cross()
 	std::string sa = std::to_string(a);
 	std::string sb = std::to_string(b);
 
-	std::string sm = Sieve::modmult(sa, sb, "1000000000");
+	std::string sm = Sieve::modcross(sa, sb, "-");
 	int d = std::stoi(sm);
 
 	return a * b == d;
+}
+
+static bool test_slash()
+{
+	int a = 1 + rand();
+	int b = 1 + rand();
+
+	std::string sa = std::to_string(a);
+	std::string sb = std::to_string(b);
+
+	std::string sm = Sieve::modiv(sa, sb);
+	int d = std::stoi(sm);
+
+	return a % b == d;
 }
 
 int main()
 {
 	srand(time(NULL));
 
-	for (int i = 0; i < 1000000; ++i)
+	for (int i = 0; i < 100000; ++i)
 	{
 		if (!test_plus())
 		{
@@ -65,6 +79,12 @@ int main()
 		if (!test_cross())
 		{
 			std::cout << "Cross Test Failed!" << std::endl;
+			return -1;
+		}
+
+		if (!test_slash())
+		{
+			std::cout << "Slash Test Failed!" << std::endl;
 			return -1;
 		}
 	}

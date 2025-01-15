@@ -2,50 +2,41 @@
 
 std::string Sieve::modiv(const std::string& _num, const std::string& _mod)
 {
-	if (_num.empty() + _mod.empty()) return "";
-    return _num;
-}
+	if (_num.empty() || _mod.empty()) return "";
 
-std::string Sieve::modmult(const std::string& _num, const std::string& _mum, const std::string& _mod)
-{
-	uint64_t nlen = _num.length();
-	uint64_t mlen = _mum.length();
+	if (_mod == "0") return "";
+	if (_mod == "1") return "0";
+
+	if (_mod == "-") return _num;
 
 	std::string ret = "";
-	std::string rep = "";
-	std::string req = "";
+	
+	uint64_t nlen = _num.length();
+	uint64_t mlen = _mod.length();
 
 	for (uint64_t i = 0; i < nlen; ++i)
 	{
-		req.resize(mlen + 1, '0');
+		ret.push_back(_num[i]);
+		ret.erase(0, ret.find_first_not_of('0'));
 
-		for (uint64_t j = 0; j < mlen; ++j)
+		if (ret.empty()) ret = "0";
+
+		if (modsub(ret, _mod, "-").empty()) continue;
+	
+		for (uint64_t j = 9; j > 0; --j)
 		{
-			char num = _num[nlen - i - 1] - '0';
-			char mum = _mum[mlen - j - 1] - '0';
+			std::string sub = modcross(_mod, std::to_string(j), "-");
+			std::string res = modsub(ret, sub, "-");
 
-			char res = num * mum;
-
-			req[mlen - j] += res % 10;
-			req[mlen - j - 1] += res / 10;
-
-			if (req[mlen - j] > '9')
+			if (!res.empty())
 			{
-				req[mlen - j] -= 10;
-				req[mlen - j - 1] += 1;
+				ret = res;
+				break;
 			}
 		}
-
-		ret = modplus(ret, req + rep, _mod);
-
-		rep.push_back('0');
-		req.clear();
 	}
 
-	ret.erase(0, ret.find_first_not_of('0'));
-	ret.shrink_to_fit();
-
-	return modiv(ret, _mod);
+    return ret;
 }
 
 std::string Sieve::modplus(const std::string& _num, const std::string& _mum, const std::string& _mod)
@@ -118,6 +109,8 @@ std::string Sieve::modsub(const std::string& _num, const std::string& _mum, cons
 
 	if (nlen == mlen)
 	{
+		if (_num == _mum) return modiv("0", _mod);
+
 		for (uint64_t i = 0; i < mlen; ++i)
 		{
 			if (_num[i] < _mum[i]) return modiv("", _mod);
@@ -161,6 +154,48 @@ std::string Sieve::modsub(const std::string& _num, const std::string& _mum, cons
 			ret[flen - i - 1] += 10;
 			ret[flen - i - 2] -= 1;
 		}
+	}
+
+	ret.erase(0, ret.find_first_not_of('0'));
+	ret.shrink_to_fit();
+
+	return modiv(ret, _mod);
+}
+
+std::string Sieve::modcross(const std::string& _num, const std::string& _mum, const std::string& _mod)
+{
+	uint64_t nlen = _num.length();
+	uint64_t mlen = _mum.length();
+
+	std::string ret = "";
+	std::string rep = "";
+	std::string req = "";
+
+	for (uint64_t i = 0; i < nlen; ++i)
+	{
+		req.resize(mlen + 1, '0');
+
+		for (uint64_t j = 0; j < mlen; ++j)
+		{
+			char num = _num[nlen - i - 1] - '0';
+			char mum = _mum[mlen - j - 1] - '0';
+
+			char res = num * mum;
+
+			req[mlen - j] += res % 10;
+			req[mlen - j - 1] += res / 10;
+
+			if (req[mlen - j] > '9')
+			{
+				req[mlen - j] -= 10;
+				req[mlen - j - 1] += 1;
+			}
+		}
+
+		ret = modplus(ret, req + rep, _mod);
+
+		rep.push_back('0');
+		req.clear();
 	}
 
 	ret.erase(0, ret.find_first_not_of('0'));
