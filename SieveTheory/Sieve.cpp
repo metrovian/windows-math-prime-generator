@@ -208,6 +208,9 @@ bool Sieve::set(std::string _min, std::string _max)
 {
 	std::string num = _min;
 
+	data.clear();
+	data.str("");
+
 	while (modsub(num, _max, "-").empty())
 	{
 		data << num << " ";
@@ -235,7 +238,7 @@ bool Sieve::save(std::string _fname)
 bool Sieve::run(std::string _max, std::string _fname)
 {
 	std::string min = std::to_string(2);
-	std::string max = std::to_string(UINT16_MAX);
+	std::string max = std::to_string(unit);
 
 	bool cond = true;
 
@@ -250,8 +253,10 @@ bool Sieve::run(std::string _max, std::string _fname)
 		set(min, max);
 		step(max);
 
+		std::cout << "pi(" << max << ") = " << count << std::endl;
+
 		min = max;
-		max = modplus(max, max, "-");
+		max = modplus(max, std::to_string(unit), "-");
 	}
 
 	return save(_fname);

@@ -13,6 +13,10 @@ protected: /* data */
 	std::stringstream data;
 	std::stringstream primes;
 
+protected: /* number */
+	uint64_t count = 0;
+	uint64_t unit = UINT16_MAX;
+
 protected: /* modular */
 	static std::string modiv(const std::string& _num, const std::string& _mod);
 	static std::string modplus(const std::string& _num, const std::string& _mum, const std::string& _mod);

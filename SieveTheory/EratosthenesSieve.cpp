@@ -1,17 +1,16 @@
 #include "EratosthenesSieve.h"
 
-bool EratosthenesSieve::step(std::string _max)
+bool EratosthenesSieve::erase_exist(std::string _max)
 {
     std::stringstream part;
 
     std::string num;
-    std::string mum;
     std::string prm;
     std::string sqr;
 
     while (primes >> prm)
     {
-        sqr = modcross(num, num, "-");
+        sqr = modcross(prm, prm, "-");
 
         if (modsub(_max, sqr, "-").empty()) break;
 
@@ -23,23 +22,41 @@ bool EratosthenesSieve::step(std::string _max)
             }
         }
 
-        data.str(part.str());
         data.clear();
+        data.str(part.str());
 
-        part.str("");
         part.clear();
+        part.str("");
     }
 
     primes.clear();
     primes.seekg(0, primes.beg);
 
+    return true;
+}
+
+bool EratosthenesSieve::erase_new(std::string _max)
+{
+    std::stringstream part;
+
+    std::string num;
+    std::string mum;
+    std::string sqr;
+
     while (data >> num)
     {
         sqr = modcross(num, num, "-");
 
-        if (modsub(_max, sqr, "-").empty()) break;
+        if (modsub(_max, sqr, "-").empty())
+        {
+            primes << num << " ";
+            ++count;
+
+            continue;
+        }
 
         primes << num << " ";
+        ++count;
 
         while (data >> mum)
         {
@@ -49,14 +66,20 @@ bool EratosthenesSieve::step(std::string _max)
             }
         }
 
-        data.str(part.str());
         data.clear();
+        data.str(part.str());
 
-        part.str("");
         part.clear();
+        part.str("");
     }
 
-    primes << data.rdbuf();
+    return true;
+}
+
+bool EratosthenesSieve::step(std::string _max)
+{
+    if (!erase_exist(_max)) return false;
+    if (!erase_new(_max)) return false;
 
     return true;
 }
