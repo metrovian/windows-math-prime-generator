@@ -131,6 +131,7 @@
     <ClInclude Include="Sieve.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="EratosthenesSieve.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Sieve.cpp" />
   </ItemGroup>

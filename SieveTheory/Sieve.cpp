@@ -203,3 +203,56 @@ std::string Sieve::modcross(const std::string& _num, const std::string& _mum, co
 
 	return modiv(ret, _mod);
 }
+
+bool Sieve::set(std::string _min, std::string _max)
+{
+	std::string num = _min;
+
+	while (modsub(num, _max, "-").empty())
+	{
+		data << num << " ";
+		num = modplus(num, "1", "-");
+	}
+
+	return true;
+}
+
+bool Sieve::save(std::string _fname)
+{
+	std::ofstream ofs(_fname);
+	
+	if (ofs.is_open())
+	{
+		ofs << primes.rdbuf();
+		ofs.close();
+
+		return true;
+	}
+
+	return false;
+}
+
+bool Sieve::run(std::string _max, std::string _fname)
+{
+	std::string min = std::to_string(2);
+	std::string max = std::to_string(UINT16_MAX);
+
+	bool cond = true;
+
+	while (cond)
+	{
+		if (modsub(_max, max, "-").empty())
+		{
+			cond = false;
+			max = _max;
+		}
+
+		set(min, max);
+		step(max);
+
+		min = max;
+		max = modplus(max, max, "-");
+	}
+
+	return save(_fname);
+}
