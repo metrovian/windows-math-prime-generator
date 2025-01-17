@@ -2,31 +2,49 @@
 
 bool EratosthenesSieve::erase_exist(std::string _max)
 {
-    std::stringstream part;
-
     std::string num;
     std::string prm;
     std::string sqr;
+    std::string ptr;
+
+    uint64_t idx = 0;
 
     while (primes >> prm)
     {
         sqr = modcross(prm, prm, "-");
+        idx = 0;
 
         if (modsub(_max, sqr, "-").empty()) break;
 
         while (data >> num)
         {
-            if (modiv(num, prm) != "0")
-            {
-                part << num << " ";
+            if (!conds[idx]) 
+            { 
+                ++idx; continue; 
             }
+
+            if (modiv(num, prm) == "0") 
+            {
+                ptr = std::to_string(idx);
+
+                while (idx < unit)
+                {
+                    conds[idx] = false;
+
+                    ptr = modplus(ptr, prm, "-");
+
+                    if (modsub(std::to_string(unit), ptr, "-").empty()) break;
+                    else idx = std::stoi(ptr);
+                }
+
+                break;
+            }
+
+            else ++idx;
         }
 
         data.clear();
-        data.str(part.str());
-
-        part.clear();
-        part.str("");
+        data.seekg(0, data.beg);
     }
 
     primes.clear();
@@ -37,40 +55,43 @@ bool EratosthenesSieve::erase_exist(std::string _max)
 
 bool EratosthenesSieve::erase_new(std::string _max)
 {
-    std::stringstream part;
-
     std::string num;
     std::string mum;
-    std::string sqr;
+    std::string ptr;
+
+    uint64_t idx = 0;
+    uint64_t jdx = 0;
 
     while (data >> num)
     {
-        sqr = modcross(num, num, "-");
+        if (!conds[idx])
+        {
+            ++idx; continue;
+        }
 
-        if (modsub(_max, sqr, "-").empty())
+        if (modsub(_max, modcross(num, num, "-"), "-").empty())
         {
             primes << num << " ";
             ++count;
 
-            continue;
+            ++idx; continue;
         }
 
         primes << num << " ";
         ++count;
 
-        while (data >> mum)
+        ptr = std::to_string(idx);
+        jdx = idx++;
+       
+        while (jdx < unit)
         {
-            if (modiv(mum, num) != "0")
-            {
-                part << mum << " ";
-            }
+            conds[jdx] = false;
+
+            ptr = modplus(ptr, num, "-");
+
+            if (modsub(std::to_string(unit), ptr, "-").empty()) break;
+            else jdx = std::stoi(ptr);
         }
-
-        data.clear();
-        data.str(part.str());
-
-        part.clear();
-        part.str("");
     }
 
     return true;

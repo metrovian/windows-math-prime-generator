@@ -208,6 +208,9 @@ bool Sieve::set(std::string _min, std::string _max)
 {
 	std::string num = _min;
 
+	conds.clear();
+	conds.resize(unit, true);
+
 	data.clear();
 	data.str("");
 
@@ -238,7 +241,7 @@ bool Sieve::save(std::string _fname)
 bool Sieve::run(std::string _max, std::string _fname)
 {
 	std::string min = std::to_string(2);
-	std::string max = std::to_string(unit);
+	std::string max = std::to_string(2 + unit);
 
 	bool cond = true;
 

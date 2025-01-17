@@ -12,6 +12,9 @@ class Sieve
 protected: /* data */
 	std::stringstream data;
 	std::stringstream primes;
+	
+protected: /* condition */
+	std::vector<bool> conds;
 
 protected: /* number */
 	uint64_t count = 0;
