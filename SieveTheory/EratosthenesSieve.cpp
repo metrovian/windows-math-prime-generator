@@ -34,7 +34,7 @@ bool EratosthenesSieve::erase_exist(std::string _max)
                     ptr = modplus(ptr, prm, "-");
 
                     if (modsub(std::to_string(unit), ptr, "-").empty()) break;
-                    else idx = std::stoi(ptr);
+                    else idx = std::stoull(ptr);
                 }
 
                 break;
@@ -90,7 +90,7 @@ bool EratosthenesSieve::erase_new(std::string _max)
             ptr = modplus(ptr, num, "-");
 
             if (modsub(std::to_string(unit), ptr, "-").empty()) break;
-            else jdx = std::stoi(ptr);
+            else jdx = std::stoull(ptr);
         }
     }
 

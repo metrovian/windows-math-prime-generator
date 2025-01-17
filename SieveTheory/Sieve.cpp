@@ -9,34 +9,45 @@ std::string Sieve::modiv(const std::string& _num, const std::string& _mod)
 
 	if (_mod == "-") return _num;
 
-	std::string ret = "";
-	
-	uint64_t nlen = _num.length();
-	uint64_t mlen = _mod.length();
-
-	for (uint64_t i = 0; i < nlen; ++i)
+	try
 	{
-		ret.push_back(_num[i]);
-		ret.erase(0, ret.find_first_not_of('0'));
-
-		if (ret.empty()) ret = "0";
-
-		if (modsub(ret, _mod, "-").empty()) continue;
-	
-		for (uint64_t j = 9; j > 0; --j)
-		{
-			std::string sub = modcross(_mod, std::to_string(j), "-");
-			std::string res = modsub(ret, sub, "-");
-
-			if (!res.empty())
-			{
-				ret = res;
-				break;
-			}
-		}
+		uint64_t num = std::stoull(_num);
+		uint64_t mod = std::stoull(_mod);
+		
+		return std::to_string(num % mod);
 	}
 
-    return ret;
+	catch (const std::out_of_range& err)
+	{
+		std::string ret = "";
+
+		uint64_t nlen = _num.length();
+		uint64_t mlen = _mod.length();
+
+		for (uint64_t i = 0; i < nlen; ++i)
+		{
+			ret.push_back(_num[i]);
+			ret.erase(0, ret.find_first_not_of('0'));
+
+			if (ret.empty()) ret = "0";
+
+			if (modsub(ret, _mod, "-").empty()) continue;
+
+			for (uint64_t j = 9; j > 0; --j)
+			{
+				std::string sub = modcross(_mod, std::to_string(j), "-");
+				std::string res = modsub(ret, sub, "-");
+
+				if (!res.empty())
+				{
+					ret = res;
+					break;
+				}
+			}
+		}
+
+		return ret;
+	}
 }
 
 std::string Sieve::modplus(const std::string& _num, const std::string& _mum, const std::string& _mod)
