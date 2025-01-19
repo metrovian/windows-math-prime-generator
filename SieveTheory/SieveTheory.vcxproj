@@ -128,10 +128,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="EratosthenesSieve.h" />
+    <ClInclude Include="EulerSieve.h" />
     <ClInclude Include="Sieve.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EratosthenesSieve.cpp" />
+    <ClCompile Include="EulerSieve.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Sieve.cpp" />
   </ItemGroup>

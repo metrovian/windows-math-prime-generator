@@ -22,6 +22,9 @@
     <ClInclude Include="EratosthenesSieve.h">
       <Filter>Sieve\Concrete</Filter>
     </ClInclude>
+    <ClInclude Include="EulerSieve.h">
+      <Filter>Sieve\Concrete</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sieve.cpp">
