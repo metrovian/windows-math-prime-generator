@@ -178,41 +178,52 @@ std::string Sieve::modcross(const std::string& _num, const std::string& _mum, co
 	uint64_t nlen = _num.length();
 	uint64_t mlen = _mum.length();
 
-	std::string ret = "";
-	std::string rep = "";
-	std::string req = "";
-
-	for (uint64_t i = 0; i < nlen; ++i)
+	try
 	{
-		req.resize(mlen + 1, '0');
+		uint64_t tnum = std::stoull(_num);
+		uint64_t tmum = std::stoull(_mum);
 
-		for (uint64_t j = 0; j < mlen; ++j)
-		{
-			char num = _num[nlen - i - 1] - '0';
-			char mum = _mum[mlen - j - 1] - '0';
-
-			char res = num * mum;
-
-			req[mlen - j] += res % 10;
-			req[mlen - j - 1] += res / 10;
-
-			if (req[mlen - j] > '9')
-			{
-				req[mlen - j] -= 10;
-				req[mlen - j - 1] += 1;
-			}
-		}
-
-		ret = modplus(ret, req + rep, _mod);
-
-		rep.push_back('0');
-		req.clear();
+		return modiv(std::to_string(tnum * tmum), _mod);
 	}
 
-	ret.erase(0, ret.find_first_not_of('0'));
-	ret.shrink_to_fit();
+	catch (const std::out_of_range& err)
+	{
+		std::string ret = "";
+		std::string rep = "";
+		std::string req = "";
 
-	return modiv(ret, _mod);
+		for (uint64_t i = 0; i < nlen; ++i)
+		{
+			req.resize(mlen + 1, '0');
+
+			for (uint64_t j = 0; j < mlen; ++j)
+			{
+				char num = _num[nlen - i - 1] - '0';
+				char mum = _mum[mlen - j - 1] - '0';
+
+				char res = num * mum;
+
+				req[mlen - j] += res % 10;
+				req[mlen - j - 1] += res / 10;
+
+				if (req[mlen - j] > '9')
+				{
+					req[mlen - j] -= 10;
+					req[mlen - j - 1] += 1;
+				}
+			}
+
+			ret = modplus(ret, req + rep, _mod);
+
+			rep.push_back('0');
+			req.clear();
+		}
+
+		ret.erase(0, ret.find_first_not_of('0'));
+		ret.shrink_to_fit();
+
+		return modiv(ret, _mod);
+	}
 }
 
 bool Sieve::set(std::string _min, std::string _max)
@@ -254,20 +265,22 @@ bool Sieve::run(std::string _max, std::string _fname)
 	std::string min = std::to_string(2);
 	std::string max = std::to_string(2 + unit);
 
+	std::string rep = modplus(_max, "1", "-");
+
 	bool cond = true;
 
 	while (cond)
 	{
-		if (modsub(_max, max, "-").empty())
+		if (modsub(rep, max, "-").empty())
 		{
 			cond = false;
-			max = _max;
+			max = rep;
 		}
 
 		set(min, max);
 		step(max);
 
-		std::cout << "pi(" << max << ") = " << count << std::endl;
+		std::cout << "pi(" << modsub(max, "1", "-") << ") = " << count << std::endl;
 
 		min = max;
 		max = modplus(max, std::to_string(unit), "-");

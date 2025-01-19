@@ -14,7 +14,7 @@ bool EratosthenesSieve::erase_exist(std::string _max)
         sqr = modcross(prm, prm, "-");
         idx = 0;
 
-        if (modsub(_max, sqr, "-").empty()) break;
+        if (!modsub(sqr, _max, "-").empty()) break;
 
         while (data >> num)
         {
@@ -33,7 +33,7 @@ bool EratosthenesSieve::erase_exist(std::string _max)
 
                     ptr = modplus(ptr, prm, "-");
 
-                    if (modsub(std::to_string(unit), ptr, "-").empty()) break;
+                    if (!modsub(ptr, _max, "-").empty()) break;
                     else idx = std::stoull(ptr);
                 }
 
@@ -69,7 +69,7 @@ bool EratosthenesSieve::erase_new(std::string _max)
             ++idx; continue;
         }
 
-        if (modsub(_max, modcross(num, num, "-"), "-").empty())
+        if (!modsub(modcross(num, num, "-"), _max, "-").empty())
         {
             primes << num << " ";
             ++count;
@@ -89,7 +89,7 @@ bool EratosthenesSieve::erase_new(std::string _max)
 
             ptr = modplus(ptr, num, "-");
 
-            if (modsub(std::to_string(unit), ptr, "-").empty()) break;
+            if (!modsub(ptr, _max, "-").empty()) break;
             else jdx = std::stoull(ptr);
         }
     }
