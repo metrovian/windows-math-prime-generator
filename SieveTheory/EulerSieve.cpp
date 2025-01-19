@@ -81,6 +81,9 @@ bool EulerSieve::erase_new(std::string _max)
 
     psv = modplus(psv, std::to_string(unit), "-");
 
+    primes.clear();
+    primes.seekg(0, primes.beg);
+
     return true;
 }
 
