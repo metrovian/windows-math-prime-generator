@@ -19,12 +19,7 @@ bool EulerSieve::erase_exist(std::string _max)
             ptr = modcross(num, prm, "-");
 
             if (!modsub(ptr, _max, "-").empty()) break;
-
-            if (!modsub(ptr, psv, "-").empty())
-            {
-                ptr = modsub(ptr, psv, "-");
-                conds[std::stoull(ptr)] = false;
-            }
+            if (!modsub(ptr, psv, "-").empty()) conds[std::stoull(modsub(ptr, psv, "-"))] = false;
 
             if (modiv(num, prm) == "0") break;
         }
@@ -67,11 +62,7 @@ bool EulerSieve::erase_new(std::string _max)
             ptr = modcross(num, prm, "-");
 
             if (!modsub(ptr, _max, "-").empty()) break;
-            else
-            {
-                ptr = modsub(ptr, psv, "-");
-                conds[std::stoull(ptr)] = false;
-            }
+            else conds[std::stoull(modsub(ptr, psv, "-"))] = false;
 
             if (modiv(num, prm) == "0") break;
         }

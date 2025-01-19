@@ -22,7 +22,7 @@ void getTime(void (*func)())
     printf("Elapsed Time: %f seconds\n", elapsedTime);
 }
 
-uint64_t max = 10000000;
+uint64_t max = 1000000;
 
 void test1() { EratosthenesSieve s; s.run(std::to_string(max), "test1.txt"); }
 void test2() { EulerSieve s; s.run(std::to_string(max), "test2.txt"); }
