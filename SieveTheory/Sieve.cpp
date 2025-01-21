@@ -1,5 +1,23 @@
 #include "Sieve.h"
 
+std::string Sieve::addcomma(const std::string& _num)
+{
+	if (_num.length() < 4) return _num;
+
+	uint64_t ptr = _num.length();
+	uint64_t str = 0;
+
+	std::string ret = _num;
+
+	while (ptr > 3)
+	{
+		ptr -= 3;
+		ret.insert(ret.begin() + ptr, ',');
+	}
+
+	return ret;
+}
+
 std::string Sieve::modiv(const std::string& _num, const std::string& _mod)
 {
 	if (_num.empty() || _mod.empty()) return "";
@@ -288,7 +306,7 @@ bool Sieve::run(std::string _max, std::string _fname)
 		set(min, max);
 		select(min, max);
 
-		std::cout << "pi(" << modsub(max, "1", "-") << ") = " << count << std::endl;
+		std::cout << "\u03C0(" << addcomma(modsub(max, "1", "-")) << ") = " << addcomma(std::to_string(count)) << std::endl;
 
 		min = max;
 		max = modplus(max, std::to_string(unit), "-");
