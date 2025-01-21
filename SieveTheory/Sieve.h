@@ -28,11 +28,13 @@ protected: /* modular */
 
 protected: /* control */
 	bool set(std::string _min, std::string _max);
+	bool select(std::string _min, std::string _max);
 	bool save(std::string _fname);
 
 public: /* public */
 	bool run(std::string _max, std::string _fname);
 
 protected: /* virtual */
-	virtual bool step(std::string _max) = 0;
+	virtual bool erase_exist(std::string _min, std::string _max) = 0;
+	virtual bool erase_new(std::string _min, std::string _max) = 0;
 };

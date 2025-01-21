@@ -245,6 +245,14 @@ bool Sieve::set(std::string _min, std::string _max)
 	return true;
 }
 
+bool Sieve::select(std::string _min, std::string _max)
+{
+	if (!erase_exist(_min, _max)) return false;
+	if (!erase_new(_min, _max)) return false;
+
+	return true;
+}
+
 bool Sieve::save(std::string _fname)
 {
 	std::ofstream ofs(_fname);
@@ -278,7 +286,7 @@ bool Sieve::run(std::string _max, std::string _fname)
 		}
 
 		set(min, max);
-		step(max);
+		select(min, max);
 
 		std::cout << "pi(" << modsub(max, "1", "-") << ") = " << count << std::endl;
 

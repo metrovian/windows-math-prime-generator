@@ -1,9 +1,7 @@
 #include "EulerSieve.h"
 
-bool EulerSieve::erase_exist(std::string _max)
+bool EulerSieve::erase_exist(std::string _min, std::string _max)
 {
-    static std::string psv = "2";
-
     std::string num = "2";
     std::string mum;
     std::string prm;
@@ -19,7 +17,7 @@ bool EulerSieve::erase_exist(std::string _max)
             ptr = modcross(num, prm, "-");
 
             if (!modsub(ptr, _max, "-").empty()) break;
-            if (!modsub(ptr, psv, "-").empty()) conds[std::stoull(modsub(ptr, psv, "-"))] = false;
+            if (!modsub(ptr, _min, "-").empty()) conds[std::stoull(modsub(ptr, _min, "-"))] = false;
 
             if (modiv(num, prm) == "0") break;
         }
@@ -27,18 +25,14 @@ bool EulerSieve::erase_exist(std::string _max)
         num = modplus(num, "1", "-");
     }
 
-    psv = modplus(psv, std::to_string(unit), "-");
-
     primes.clear();
     primes.seekg(0, primes.beg);
 
     return true;
 }
 
-bool EulerSieve::erase_new(std::string _max)
+bool EulerSieve::erase_new(std::string _min, std::string _max)
 {
-    static std::string psv = "2";
-
     std::string num;
     std::string mum;
     std::string prm;
@@ -62,7 +56,7 @@ bool EulerSieve::erase_new(std::string _max)
             ptr = modcross(num, prm, "-");
 
             if (!modsub(ptr, _max, "-").empty()) break;
-            else conds[std::stoull(modsub(ptr, psv, "-"))] = false;
+            else conds[std::stoull(modsub(ptr, _min, "-"))] = false;
 
             if (modiv(num, prm) == "0") break;
         }
@@ -70,18 +64,8 @@ bool EulerSieve::erase_new(std::string _max)
         ++idx;
     }
 
-    psv = modplus(psv, std::to_string(unit), "-");
-
     primes.clear();
     primes.seekg(0, primes.beg);
-
-    return true;
-}
-
-bool EulerSieve::step(std::string _max)
-{
-    if (!erase_exist(_max)) return false;
-    if (!erase_new(_max)) return false;
 
     return true;
 }

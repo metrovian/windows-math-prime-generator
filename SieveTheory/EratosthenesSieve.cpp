@@ -1,6 +1,6 @@
 #include "EratosthenesSieve.h"
 
-bool EratosthenesSieve::erase_exist(std::string _max)
+bool EratosthenesSieve::erase_exist(std::string _min, std::string _max)
 {
     std::string num;
     std::string prm;
@@ -53,7 +53,7 @@ bool EratosthenesSieve::erase_exist(std::string _max)
     return true;
 }
 
-bool EratosthenesSieve::erase_new(std::string _max)
+bool EratosthenesSieve::erase_new(std::string _min, std::string _max)
 {
     std::string num;
     std::string mum;
@@ -93,14 +93,6 @@ bool EratosthenesSieve::erase_new(std::string _max)
             else jdx = std::stoull(ptr);
         }
     }
-
-    return true;
-}
-
-bool EratosthenesSieve::step(std::string _max)
-{
-    if (!erase_exist(_max)) return false;
-    if (!erase_new(_max)) return false;
 
     return true;
 }
