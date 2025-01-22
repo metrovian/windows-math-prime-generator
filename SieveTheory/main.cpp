@@ -1,6 +1,7 @@
 #include "Sieve.h"
 #include "EratosthenesSieve.h"
 #include "EulerSieve.h"
+#include "AtkinSieve.h"
 #include <windows.h>
 
 void getTime(void (*func)())
@@ -22,15 +23,17 @@ void getTime(void (*func)())
     printf("Elapsed Time: %f seconds\n", elapsedTime);
 }
 
-uint64_t max = 1000000000;
+uint64_t max = 10000;
 
 void test1() { EratosthenesSieve s; s.run(std::to_string(max), "test1.txt"); }
 void test2() { EulerSieve s; s.run(std::to_string(max), "test2.txt"); }
+void test3() { AtkinSieve s; s.run(std::to_string(max), "test3.txt"); }
 
 int main()
 {
     getTime(test1);
     getTime(test2);
+    getTime(test3);
 
 	return 0;
 }
