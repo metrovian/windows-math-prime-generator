@@ -26,7 +26,7 @@ bool AtkinSieve::erase_new(std::string _min, std::string _max)
                 modcross(j, j, "-"), "-"
             );
 
-            if (modsub(_min, num, "-").empty() && modsub(num, _max, "-").empty())
+            if (!modsub(num, _min, "-").empty() && modsub(num, _max, "-").empty())
             {
                 cand = modiv(num, "12");
 
@@ -42,7 +42,7 @@ bool AtkinSieve::erase_new(std::string _min, std::string _max)
                 modcross(j, j, "-"), "-"
             );
 
-            if (modsub(_min, num, "-").empty() && modsub(num, _max, "-").empty())
+            if (!modsub(num, _min, "-").empty() && modsub(num, _max, "-").empty())
             {
                 cand = modiv(num, "12");
 
@@ -60,7 +60,7 @@ bool AtkinSieve::erase_new(std::string _min, std::string _max)
 
             if (num.empty()) continue;
 
-            if (modsub(j, i, "-").empty() && modsub(_min, num, "-").empty() && modsub(num, _max, "-").empty())
+            if (modsub(j, i, "-").empty() && !modsub(num, _min, "-").empty() && modsub(num, _max, "-").empty())
             {
                 cand = modiv(num, "12");
 
@@ -72,19 +72,43 @@ bool AtkinSieve::erase_new(std::string _min, std::string _max)
         }
     }
 
-    for (uint64_t i = 3; i < unit; ++i)
+    for (std::string i = _min; modsub(i, _max, "-").empty(); i = modplus(i, "1", "-"))
     {
-        if (!conds[i])
+        if (!conds[std::stoull(modsub(i, _min, "-"))])
         {
-            for (uint64_t j = (i + 2) * (i + 2); j < unit; j += (i + 2) * (i + 2))
+            for (std::string j = modcross(i, i, "-"); modsub(j, _max, "-").empty(); j = modplus(j, modcross(i, i, "-"), "-"))
             {
-                conds[j - 2] = true;
+                conds[std::stoull(modsub(j, _min, "-"))] = true;
+                if (modplus(_min, j, "-") == "65537") std::cout << "found" << std::endl;
             }
         }
     }
 
+    std::string prm;
+
+    while (primes >> prm)
+    {
+        std::string mul = modcross(prm, prm, "-");
+        std::string sqr = mul;
+
+        while (modsub(mul, _max, "-").empty())
+        {
+            if (!modsub(mul, _min, "-").empty())
+            {
+                conds[std::stoull(modsub(mul, _min, "-"))] = true;
+            }
+
+            mul = modplus(mul, sqr, "-");
+        }
+    }
+
+    primes.clear();
+    primes.seekg(0, primes.beg);
+
     for (uint64_t i = 0; i < unit; ++i)
     {
+        if (!modsub(modplus(std::to_string(i), _min, "-"), _max, "-").empty()) break;
+
         if (!conds[i])
         {
             primes << modplus(_min, std::to_string(i), "-") << " ";
