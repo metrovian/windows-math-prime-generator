@@ -2,11 +2,9 @@
 
 bool AtkinSieve::erase_exist(std::string _min, std::string _max)
 {
-    return true;
-}
+    std::string num;
+    std::string cand;
 
-bool AtkinSieve::erase_new(std::string _min, std::string _max)
-{
     if (_min == "2")
     {
         if (!modsub(_max, "2", "-").empty()) conds[0] = false;
@@ -17,12 +15,9 @@ bool AtkinSieve::erase_new(std::string _min, std::string _max)
     {
         for (std::string j = "1"; modsub(modcross(j, j, "-"), _max, "-").empty(); j = modplus(j, "1", "-"))
         {
-            std::string num;
-            std::string cand;
-            
             num = modplus
             (
-                modcross(modcross(i, i, "-"), "4", "-"), 
+                modcross(modcross(i, i, "-"), "4", "-"),
                 modcross(j, j, "-"), "-"
             );
 
@@ -83,12 +78,19 @@ bool AtkinSieve::erase_new(std::string _min, std::string _max)
         }
     }
 
+    return true;
+}
+
+bool AtkinSieve::erase_new(std::string _min, std::string _max)
+{
     std::string prm;
+    std::string mul;
+    std::string sqr;
 
     while (primes >> prm)
     {
-        std::string mul = modcross(prm, prm, "-");
-        std::string sqr = mul;
+        mul = modcross(prm, prm, "-");
+        sqr = mul;
 
         while (modsub(mul, _max, "-").empty())
         {
