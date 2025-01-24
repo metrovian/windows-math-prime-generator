@@ -79,7 +79,6 @@ bool AtkinSieve::erase_new(std::string _min, std::string _max)
             for (std::string j = modcross(i, i, "-"); modsub(j, _max, "-").empty(); j = modplus(j, modcross(i, i, "-"), "-"))
             {
                 conds[std::stoull(modsub(j, _min, "-"))] = true;
-                if (modplus(_min, j, "-") == "65537") std::cout << "found" << std::endl;
             }
         }
     }
