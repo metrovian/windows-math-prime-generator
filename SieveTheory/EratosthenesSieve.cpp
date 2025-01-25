@@ -1,50 +1,32 @@
 #include "EratosthenesSieve.h"
 
-bool EratosthenesSieve::erase_exist(std::string _max)
+bool EratosthenesSieve::erase_exist(std::string _min, std::string _max)
 {
     std::string num;
     std::string prm;
-    std::string sqr;
     std::string ptr;
-
-    uint64_t idx = 0;
 
     while (primes >> prm)
     {
-        sqr = modcross(prm, prm, "-");
-        idx = 0;
+        if (!less(square(prm), _max)) break;
 
-        if (!modsub(sqr, _max, "-").empty()) break;
-
-        while (data >> num)
+        for (uint64_t i = 0; less(iton(i, _min), _max); ++i)
         {
-            if (!conds[idx]) 
-            { 
-                ++idx; continue; 
-            }
-
-            if (modiv(num, prm) == "0") 
+            if (conds[i])
             {
-                ptr = std::to_string(idx);
+                num = iton(i, _min);
 
-                while (idx < unit)
+                if (mod(num, prm) == "0")
                 {
-                    conds[idx] = false;
+                    for (std::string j = num; less(j, _max); j = plus(j, prm))
+                    {
+                        conds[ntoi(j, _min)] = false;
+                    }
 
-                    ptr = modplus(ptr, prm, "-");
-
-                    if (!modsub(ptr, _max, "-").empty()) break;
-                    else idx = std::stoull(ptr);
+                    break;
                 }
-
-                break;
             }
-
-            else ++idx;
         }
-
-        data.clear();
-        data.seekg(0, data.beg);
     }
 
     primes.clear();
@@ -53,54 +35,24 @@ bool EratosthenesSieve::erase_exist(std::string _max)
     return true;
 }
 
-bool EratosthenesSieve::erase_new(std::string _max)
+bool EratosthenesSieve::erase_new(std::string _min, std::string _max)
 {
     std::string num;
-    std::string mum;
-    std::string ptr;
 
-    uint64_t idx = 0;
-    uint64_t jdx = 0;
-
-    while (data >> num)
+    for (uint64_t i = 0; less(iton(i, _min), _max); ++i)
     {
-        if (!conds[idx])
-        {
-            ++idx; continue;
-        }
+        if (!conds[i]) continue;
 
-        if (!modsub(modcross(num, num, "-"), _max, "-").empty())
-        {
-            primes << num << " ";
-            ++count;
-
-            ++idx; continue;
-        }
+        num = iton(i, _min);
 
         primes << num << " ";
         ++count;
 
-        ptr = std::to_string(idx);
-        jdx = idx++;
-       
-        while (jdx < unit)
+        for (std::string j = num; less(j, _max); j = plus(j, num))
         {
-            conds[jdx] = false;
-
-            ptr = modplus(ptr, num, "-");
-
-            if (!modsub(ptr, _max, "-").empty()) break;
-            else jdx = std::stoull(ptr);
+            conds[ntoi(j, _min)] = false;
         }
     }
-
-    return true;
-}
-
-bool EratosthenesSieve::step(std::string _max)
-{
-    if (!erase_exist(_max)) return false;
-    if (!erase_new(_max)) return false;
 
     return true;
 }
