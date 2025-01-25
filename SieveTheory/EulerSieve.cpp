@@ -2,27 +2,29 @@
 
 bool EulerSieve::erase_exist(std::string _min, std::string _max)
 {
-    std::string num = "2";
-    std::string mum;
+    std::string num;
     std::string prm;
     std::string ptr;
 
-    while (modsub(num, _max, "-").empty())
+    for (std::string num = "2"; less(num, _max); num = increase(num))
     {
         primes.clear();
         primes.seekg(0, primes.beg);
 
         while (primes >> prm)
         {
-            ptr = modcross(num, prm, "-");
+            ptr = cross(num, prm);
 
-            if (!modsub(ptr, _max, "-").empty()) break;
-            if (!modsub(ptr, _min, "-").empty()) conds[std::stoull(modsub(ptr, _min, "-"))] = false;
+            if (less(ptr, _max))
+            {
+                if (least(ptr, _min)) conds[ntoi(ptr, _min)] = false;
+                if (mod(num, prm) == "0") break;
 
-            if (modiv(num, prm) == "0") break;
+                continue;
+            }
+
+            break;
         }
-
-        num = modplus(num, "1", "-");
     }
 
     primes.clear();
@@ -34,15 +36,14 @@ bool EulerSieve::erase_exist(std::string _min, std::string _max)
 bool EulerSieve::erase_new(std::string _min, std::string _max)
 {
     std::string num;
-    std::string mum;
     std::string prm;
     std::string ptr;
 
-    uint64_t idx = 0;
-
-    while (data >> num)
+    for (uint64_t i = 0; less(iton(i, _min), _max); ++i)
     {
-        if (conds[idx])
+        num = iton(i, _min);
+
+        if (conds[i])
         {
             primes << num << " ";
             ++count;
@@ -53,15 +54,18 @@ bool EulerSieve::erase_new(std::string _min, std::string _max)
 
         while (primes >> prm)
         {
-            ptr = modcross(num, prm, "-");
+            ptr = cross(num, prm);
 
-            if (!modsub(ptr, _max, "-").empty()) break;
-            else conds[std::stoull(modsub(ptr, _min, "-"))] = false;
+            if (less(ptr, _max))
+            {
+                if (least(ptr, _min)) conds[ntoi(ptr, _min)] = false;
+                if (mod(num, prm) == "0") break;
 
-            if (modiv(num, prm) == "0") break;
+                continue;
+            }
+
+            break;
         }
-
-        ++idx;
     }
 
     primes.clear();

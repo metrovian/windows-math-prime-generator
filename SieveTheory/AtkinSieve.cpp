@@ -1,79 +1,95 @@
 #include "AtkinSieve.h"
 
-bool AtkinSieve::erase_exist(std::string _min, std::string _max)
+bool AtkinSieve::reverse_cond1(std::string _nsqr, std::string _msqr, std::string _min, std::string _max)
 {
-    std::string num;
-    std::string cand;
+    std::string num = plus(cross(_nsqr, "4"), _msqr);
+    std::string res = mod(num, "12");
 
-    if (_min == "2")
+    if (between(num, _min, _max))
     {
-        if (!modsub(_max, "2", "-").empty()) conds[0] = false;
-        if (!modsub(_max, "3", "-").empty()) conds[1] = false;
+        if (res == "1" || res == "5")
+        {
+            conds[ntoi(num, _min)] = !conds[ntoi(num, _min)];
+            return true;
+        }
     }
 
-    for (std::string i = "1"; modsub(modcross(i, i, "-"), _max, "-").empty(); i = modplus(i, "1", "-"))
+    return false;
+}
+
+bool AtkinSieve::reverse_cond2(std::string _nsqr, std::string _msqr, std::string _min, std::string _max)
+{
+    std::string num = plus(cross(_nsqr, "3"), _msqr);
+    std::string res = mod(num, "12");
+
+    if (between(num, _min, _max))
     {
-        for (std::string j = "1"; modsub(modcross(j, j, "-"), _max, "-").empty(); j = modplus(j, "1", "-"))
+        if (res == "7")
         {
-            num = modplus
-            (
-                modcross(modcross(i, i, "-"), "4", "-"),
-                modcross(j, j, "-"), "-"
-            );
+            conds[ntoi(num, _min)] = !conds[ntoi(num, _min)];
+            return true;
+        }
+    }
 
-            if (!modsub(num, _min, "-").empty() && modsub(num, _max, "-").empty())
+    return false;
+}
+
+bool AtkinSieve::reverse_cond3(std::string _nsqr, std::string _msqr, std::string _min, std::string _max)
+{
+    std::string num = sub(cross(_nsqr, "3"), _msqr);
+    std::string res = mod(num, "12");
+
+    if (num.empty()) return false;
+
+    if (between(num, _min, _max))
+    {
+        if (less(_msqr, _nsqr))
+        {
+            if (res == "11")
             {
-                cand = modiv(num, "12");
-
-                if (cand == "1" || cand == "5")
-                {
-                    conds[std::stoull(modsub(num, _min, "-"))] = !conds[std::stoull(modsub(num, _min, "-"))];
-                }
-            }
-
-            num = modplus
-            (
-                modcross(modcross(i, i, "-"), "3", "-"),
-                modcross(j, j, "-"), "-"
-            );
-
-            if (!modsub(num, _min, "-").empty() && modsub(num, _max, "-").empty())
-            {
-                cand = modiv(num, "12");
-
-                if (cand == "7")
-                {
-                    conds[std::stoull(modsub(num, _min, "-"))] = !conds[std::stoull(modsub(num, _min, "-"))];
-                }
-            }
-
-            num = modsub
-            (
-                modcross(modcross(i, i, "-"), "3", "-"),
-                modcross(j, j, "-"), "-"
-            );
-
-            if (num.empty()) continue;
-
-            if (modsub(j, i, "-").empty() && !modsub(num, _min, "-").empty() && modsub(num, _max, "-").empty())
-            {
-                cand = modiv(num, "12");
-
-                if (cand == "11")
-                {
-                    conds[std::stoull(modsub(num, _min, "-"))] = !conds[std::stoull(modsub(num, _min, "-"))];
-                }
+                conds[ntoi(num, _min)] = !conds[ntoi(num, _min)];
+                return true;
             }
         }
     }
 
-    for (std::string i = _min; modsub(i, _max, "-").empty(); i = modplus(i, "1", "-"))
+    return false;
+}
+
+bool AtkinSieve::erase_exist(std::string _min, std::string _max)
+{
+    std::string nsqr;
+    std::string msqr;
+
+    if (_min == "2")
     {
-        if (!conds[std::stoull(modsub(i, _min, "-"))])
+        if (least(_max, "2")) conds[0] = false;
+        if (least(_max, "3")) conds[1] = false;
+    }
+
+    for (std::string i = "1"; less(square(i), _max); i = increase(i))
+    {
+        nsqr = square(i);
+
+        for (std::string j = "1"; less(square(j), _max); j = increase(j))
         {
-            for (std::string j = modcross(i, i, "-"); modsub(j, _max, "-").empty(); j = modplus(j, modcross(i, i, "-"), "-"))
+            msqr = square(j);
+
+            reverse_cond1(nsqr, msqr, _min, _max);
+            reverse_cond2(nsqr, msqr, _min, _max);
+            reverse_cond3(nsqr, msqr, _min, _max);
+        }
+    }
+
+    for (std::string i = _min; less(i, _max); i = plus(i, "1"))
+    {
+        nsqr = square(i);
+
+        if (!conds[ntoi(i, _min)])
+        {
+            for (std::string j = nsqr; less(j, _max); j = plus(j, nsqr))
             {
-                conds[std::stoull(modsub(j, _min, "-"))] = true;
+                conds[ntoi(j, _min)] = true;
             }
         }
     }
@@ -84,35 +100,33 @@ bool AtkinSieve::erase_exist(std::string _min, std::string _max)
 bool AtkinSieve::erase_new(std::string _min, std::string _max)
 {
     std::string prm;
-    std::string mul;
+    std::string res;
     std::string sqr;
 
     while (primes >> prm)
     {
-        mul = modcross(prm, prm, "-");
-        sqr = mul;
+        res = square(prm);
+        sqr = res;
 
-        while (modsub(mul, _max, "-").empty())
+        while (less(res, _max))
         {
-            if (!modsub(mul, _min, "-").empty())
+            if (least(res, _min))
             {
-                conds[std::stoull(modsub(mul, _min, "-"))] = true;
+                conds[ntoi(res, _min)] = true;
             }
 
-            mul = modplus(mul, sqr, "-");
+            res = plus(res, sqr);
         }
     }
 
     primes.clear();
     primes.seekg(0, primes.beg);
 
-    for (uint64_t i = 0; i < unit; ++i)
+    for (uint64_t i = 0; less(iton(i, _min), _max); ++i)
     {
-        if (!modsub(modplus(std::to_string(i), _min, "-"), _max, "-").empty()) break;
-
         if (!conds[i])
         {
-            primes << modplus(_min, std::to_string(i), "-") << " ";
+            primes << iton(i, _min) << " ";
             ++count;
         }
     }

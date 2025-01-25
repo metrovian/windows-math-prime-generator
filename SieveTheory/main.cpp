@@ -20,7 +20,7 @@ void getTime(void (*func)())
     QueryPerformanceCounter(&end);
     elapsedTime = (double)(end.QuadPart - start.QuadPart) / frequency.QuadPart;
 
-    printf("Elapsed Time: %f seconds\n", elapsedTime);
+    printf("Elapsed Time: %f seconds\n\n", elapsedTime);
 }
 
 uint64_t max = 1000000;

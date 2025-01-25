@@ -19,16 +19,33 @@ protected: /* condition */
 protected: /* number */
 	uint64_t count = 0;
 	uint64_t unit = UINT16_MAX;
-
+	
 protected: /* format */
 	static std::string addcomma(const std::string& _num);
 
 protected: /* modular */
-	static std::string modiv(const std::string& _num, const std::string& _mod);
+	static std::string mod(const std::string& _num, const std::string& _mod);
 	static std::string modplus(const std::string& _num, const std::string& _mum, const std::string& _mod);
 	static std::string modsub(const std::string& _num, const std::string& _mum, const std::string& _mod);
 	static std::string modcross(const std::string& _num, const std::string& _mum, const std::string& _mod);
 
+protected: /* overload */
+	static std::string plus(const std::string& _num, const std::string& _mum);
+	static std::string sub(const std::string& _num, const std::string& _mum);
+	static std::string cross(const std::string& _num, const std::string& _mum);
+	static std::string increase(const std::string& _num);
+	static std::string square(const std::string& _num);
+
+protected: /* range */
+	static bool least(const std::string& _num, const std::string& _min);
+	static bool less(const std::string& _num, const std::string& _max);
+	static bool between(const std::string& _num, const std::string& _min, const std::string& _max);
+
+protected: /* transform */
+	static uint64_t ntoi(const std::string& _num, const std::string& _min);
+	static std::string iton(const std::string& _idx, const std::string& _min);
+	static std::string iton(const uint64_t _idx, const std::string& _min);
+		
 protected: /* control */
 	bool set(std::string _min, std::string _max);
 	bool select(std::string _min, std::string _max);
