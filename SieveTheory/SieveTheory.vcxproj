@@ -130,6 +130,7 @@
     <ClInclude Include="AtkinSieve.h" />
     <ClInclude Include="EratosthenesSieve.h" />
     <ClInclude Include="EulerSieve.h" />
+    <ClInclude Include="PritchardSieve.h" />
     <ClInclude Include="Sieve.h" />
   </ItemGroup>
   <ItemGroup>
@@ -137,6 +138,7 @@
     <ClCompile Include="EratosthenesSieve.cpp" />
     <ClCompile Include="EulerSieve.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PritchardSieve.cpp" />
     <ClCompile Include="Sieve.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
