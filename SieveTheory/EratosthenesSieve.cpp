@@ -2,30 +2,15 @@
 
 bool EratosthenesSieve::process_pre(std::string _min, std::string _max)
 {
-    std::string num;
     std::string prm;
-    std::string ptr;
 
     while (primes >> prm)
     {
         if (!less(square(prm), _max)) break;
 
-        for (uint64_t i = 0; less(iton(i, _min), _max); ++i)
+        for (std::string j = sub(_min, mod(_min, prm)); less(j, _max); j = plus(j, prm))
         {
-            if (conds[i])
-            {
-                num = iton(i, _min);
-
-                if (mod(num, prm) == "0")
-                {
-                    for (std::string j = num; less(j, _max); j = plus(j, prm))
-                    {
-                        conds[ntoi(j, _min)] = false;
-                    }
-
-                    break;
-                }
-            }
+            if (least(j, _min)) conds[ntoi(j, _min)] = false;
         }
     }
 
