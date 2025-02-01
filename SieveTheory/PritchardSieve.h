@@ -3,8 +3,17 @@
 
 class PritchardSieve : public Sieve
 {
-protected: /* overload */
+protected: /* range */
+	static bool less_pair(const std::pair<std::string, std::string>& _num, const std::pair<std::string, std::string>& _min);
 	static bool greater_pair(const std::pair<std::string, std::string>& _num, const std::pair<std::string, std::string>& _min);
+
+protected: /* data */
+	std::priority_queue
+		<	
+			std::pair<std::string, std::string>,
+			std::vector<std::pair<std::string, std::string>>,
+			decltype(&PritchardSieve::greater_pair)
+		> cps;
 
 protected: /* virtual */
 	bool process_pre(std::string _min, std::string _max) override;
