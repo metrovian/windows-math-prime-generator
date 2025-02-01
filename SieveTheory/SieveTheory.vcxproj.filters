@@ -28,6 +28,9 @@
     <ClInclude Include="AtkinSieve.h">
       <Filter>Sieve\Concrete</Filter>
     </ClInclude>
+    <ClInclude Include="PritchardSieve.h">
+      <Filter>Sieve\Concrete</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sieve.cpp">

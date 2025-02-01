@@ -2,6 +2,11 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <queue>
+#include <set>
+#include <map>
+#include <unordered_set>
+#include <unordered_map>
 #include <string>
 #include <sstream>
 #include <cmath>
@@ -37,8 +42,10 @@ protected: /* overload */
 	static std::string square(const std::string& _num);
 
 protected: /* range */
-	static bool least(const std::string& _num, const std::string& _min);
+	static bool upto(const std::string& _num, const std::string& _max);
 	static bool less(const std::string& _num, const std::string& _max);
+	static bool least(const std::string& _num, const std::string& _min);
+	static bool greater(const std::string& _num, const std::string& _min);
 	static bool between(const std::string& _num, const std::string& _min, const std::string& _max);
 
 protected: /* transform */
@@ -55,6 +62,6 @@ public: /* public */
 	bool run(std::string _max, std::string _fname);
 
 protected: /* virtual */
-	virtual bool erase_exist(std::string _min, std::string _max) = 0;
-	virtual bool erase_new(std::string _min, std::string _max) = 0;
+	virtual bool process_pre(std::string _min, std::string _max) = 0;
+	virtual bool process_post(std::string _min, std::string _max) = 0;
 };

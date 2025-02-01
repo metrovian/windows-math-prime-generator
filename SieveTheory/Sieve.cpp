@@ -269,14 +269,24 @@ std::string Sieve::square(const std::string& _num)
 	return cross(_num, _num);
 }
 
-bool Sieve::least(const std::string& _num, const std::string& _min)
+bool Sieve::upto(const std::string& _num, const std::string& _max)
 {
-	return !sub(_num, _min).empty();
+	return !sub(_max, _num).empty();
 }
 
 bool Sieve::less(const std::string& _num, const std::string& _max)
 {
 	return sub(_num, _max).empty();
+}
+
+bool Sieve::least(const std::string& _num, const std::string& _min)
+{
+	return !sub(_num, _min).empty();
+}
+
+bool Sieve::greater(const std::string& _num, const std::string& _min)
+{
+	return sub(_min, _num).empty();
 }
 
 bool Sieve::between(const std::string& _num, const std::string& _min, const std::string& _max)
@@ -311,8 +321,8 @@ bool Sieve::set(std::string _min, std::string _max)
 
 bool Sieve::select(std::string _min, std::string _max)
 {
-	if (!erase_exist(_min, _max)) return false;
-	if (!erase_new(_min, _max)) return false;
+	if (!process_pre(_min, _max)) return false;
+	if (!process_post(_min, _max)) return false;
 
 	return true;
 }
