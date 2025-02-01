@@ -56,7 +56,7 @@ bool AtkinSieve::reverse_cond3(std::string _nsqr, std::string _msqr, std::string
     return false;
 }
 
-bool AtkinSieve::erase_exist(std::string _min, std::string _max)
+bool AtkinSieve::process_pre(std::string _min, std::string _max)
 {
     std::string nsqr;
     std::string msqr;
@@ -97,7 +97,7 @@ bool AtkinSieve::erase_exist(std::string _min, std::string _max)
     return true;
 }
 
-bool AtkinSieve::erase_new(std::string _min, std::string _max)
+bool AtkinSieve::process_post(std::string _min, std::string _max)
 {
     std::string prm;
     std::string res;

@@ -1,6 +1,6 @@
 #include "EulerSieve.h"
 
-bool EulerSieve::erase_exist(std::string _min, std::string _max)
+bool EulerSieve::process_pre(std::string _min, std::string _max)
 {
     std::string num;
     std::string prm;
@@ -33,7 +33,7 @@ bool EulerSieve::erase_exist(std::string _min, std::string _max)
     return true;
 }
 
-bool EulerSieve::erase_new(std::string _min, std::string _max)
+bool EulerSieve::process_post(std::string _min, std::string _max)
 {
     std::string num;
     std::string prm;

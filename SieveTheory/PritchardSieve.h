@@ -3,7 +3,10 @@
 
 class PritchardSieve : public Sieve
 {
+protected: /* overload */
+	static bool greater_pair(const std::pair<std::string, std::string>& _num, const std::pair<std::string, std::string>& _min);
+
 protected: /* virtual */
-	bool erase_exist(std::string _min, std::string _max) override;
-	bool erase_new(std::string _min, std::string _max) override;
+	bool process_pre(std::string _min, std::string _max) override;
+	bool process_post(std::string _min, std::string _max) override;
 };

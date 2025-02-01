@@ -9,6 +9,6 @@ protected: /* condition */
 	bool reverse_cond3(std::string _nsqr, std::string _msqr, std::string _min, std::string _max);
 
 protected: /* virtual */
-	bool erase_exist(std::string _min, std::string _max) override;
-	bool erase_new(std::string _min, std::string _max) override;
+	bool process_pre(std::string _min, std::string _max) override;
+	bool process_post(std::string _min, std::string _max) override;
 };
