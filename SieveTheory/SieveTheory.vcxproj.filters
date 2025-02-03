@@ -31,6 +31,9 @@
     <ClInclude Include="PritchardSieve.h">
       <Filter>Sieve\Concrete</Filter>
     </ClInclude>
+    <ClInclude Include="SundaramSieve.h">
+      <Filter>Sieve\Concrete</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sieve.cpp">
@@ -46,6 +49,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AtkinSieve.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PritchardSieve.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
