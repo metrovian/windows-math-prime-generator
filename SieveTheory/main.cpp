@@ -6,23 +6,20 @@
 #include "SundaramSieve.h"
 #include <windows.h>
 
-void getTime(void (*func)())
+void get_time(void (*func)())
 {
-    LARGE_INTEGER frequency;
+    LARGE_INTEGER freq;
     LARGE_INTEGER start;
     LARGE_INTEGER end;
 
-    double elapsedTime;
-
-    QueryPerformanceFrequency(&frequency);
+    QueryPerformanceFrequency(&freq);
     QueryPerformanceCounter(&start);
 
     func();
 
     QueryPerformanceCounter(&end);
-    elapsedTime = (double)(end.QuadPart - start.QuadPart) / frequency.QuadPart;
 
-    printf("Elapsed Time: %f seconds\n\n", elapsedTime);
+    printf("Elapsed Time: %lf seconds\n\n", (double)(end.QuadPart - start.QuadPart) / freq.QuadPart);
 }
 
 uint64_t max = 1000000;
@@ -35,11 +32,11 @@ void test5() { SundaramSieve s; s.run(std::to_string(max), "test5.txt"); }
 
 int main()
 {
-    getTime(test1);
-    getTime(test2);
-    getTime(test3);
-    getTime(test4);
-    getTime(test5);
+    get_time(test1);
+    get_time(test2);
+    get_time(test3);
+    get_time(test4);
+    get_time(test5);
 
 	return 0;
 }
