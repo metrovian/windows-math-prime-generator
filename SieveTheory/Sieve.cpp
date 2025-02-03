@@ -259,6 +259,76 @@ std::string Sieve::cross(const std::string& _num, const std::string& _mum)
 	return modcross(_num, _mum, "-");
 }
 
+std::string Sieve::div(const std::string& _num, const std::string& _mum)
+{
+	if (_num.empty() || _mum.empty()) return "";
+
+	uint64_t nlen = _num.length();
+	uint64_t mlen = _mum.length();
+
+	if (nlen < mlen) return "0";
+
+	if (nlen == mlen)
+	{
+		if (_num == _mum) return "1";
+
+		for (uint64_t i = 0; i < mlen; ++i)
+		{
+			if (_num[i] < _mum[i]) return "0";
+			if (_num[i] > _mum[i]) break;
+		}
+	}
+
+	try
+	{
+		uint64_t num = std::stoull(_num);
+		uint64_t mum = std::stoull(_mum);
+
+		return std::to_string(num / mum);
+	}
+
+	catch (const std::out_of_range& err)
+	{
+		std::string ret = "";
+		std::string rem = "";
+
+		uint64_t nlen = _num.length();
+		uint64_t mlen = _mum.length();
+
+		for (uint64_t i = 0; i < nlen; ++i)
+		{
+			rem.push_back(_num[i]);
+
+			rem.erase(0, rem.find_first_not_of('0'));
+			ret.erase(0, ret.find_first_not_of('0'));
+
+			if (rem.empty()) rem = "0";
+
+			if (modsub(rem, _mum, "-").empty())
+			{
+				ret.push_back('0');
+				continue;
+			}
+
+			for (uint64_t j = 9; j > 0; --j)
+			{
+				std::string sub = modcross(_mum, std::to_string(j), "-");
+				std::string res = modsub(rem, sub, "-");
+
+				if (!res.empty())
+				{
+					rem = res;
+					ret.push_back(static_cast<char>(j) + '0');
+
+					break;
+				}
+			}
+		}
+
+		return ret;
+	}
+}
+
 std::string Sieve::increase(const std::string& _num)
 {
 	return plus(_num, "1");

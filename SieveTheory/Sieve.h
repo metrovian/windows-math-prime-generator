@@ -34,10 +34,11 @@ protected: /* modular */
 	static std::string modsub(const std::string& _num, const std::string& _mum, const std::string& _mod);
 	static std::string modcross(const std::string& _num, const std::string& _mum, const std::string& _mod);
 
-protected: /* overload */
+protected: /* operator */
 	static std::string plus(const std::string& _num, const std::string& _mum);
 	static std::string sub(const std::string& _num, const std::string& _mum);
 	static std::string cross(const std::string& _num, const std::string& _mum);
+	static std::string div(const std::string& _num, const std::string& _mum);
 	static std::string increase(const std::string& _num);
 	static std::string square(const std::string& _num);
 
