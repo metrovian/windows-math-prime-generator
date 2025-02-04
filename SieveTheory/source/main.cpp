@@ -24,11 +24,11 @@ void get_time(void (*func)())
 
 uint64_t max = 1000000;
 
-void test1() { EratosthenesSieve s; s.run(std::to_string(max), "test1.txt"); }
-void test2() { EulerSieve s; s.run(std::to_string(max), "test2.txt"); }
-void test3() { AtkinSieve s; s.run(std::to_string(max), "test3.txt"); }
-void test4() { PritchardSieve s; s.run(std::to_string(max), "test4.txt"); }
-void test5() { SundaramSieve s; s.run(std::to_string(max), "test5.txt"); }
+void test1() { EratosthenesSieve s; s.run(std::to_string(max), "x64/test1.txt"); }
+void test2() { EulerSieve s; s.run(std::to_string(max), "x64/test2.txt"); }
+void test3() { AtkinSieve s; s.run(std::to_string(max), "x64/test3.txt"); }
+void test4() { PritchardSieve s; s.run(std::to_string(max), "x64/test4.txt"); }
+void test5() { SundaramSieve s; s.run(std::to_string(max), "x64/test5.txt"); }
 
 int main()
 {

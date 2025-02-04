@@ -104,6 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>.\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -118,6 +119,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>.\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -127,21 +129,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="AtkinSieve.h" />
-    <ClInclude Include="EratosthenesSieve.h" />
-    <ClInclude Include="EulerSieve.h" />
-    <ClInclude Include="PritchardSieve.h" />
-    <ClInclude Include="Sieve.h" />
-    <ClInclude Include="SundaramSieve.h" />
+    <ClInclude Include="include\AtkinSieve.h" />
+    <ClInclude Include="include\EratosthenesSieve.h" />
+    <ClInclude Include="include\EulerSieve.h" />
+    <ClInclude Include="include\PritchardSieve.h" />
+    <ClInclude Include="include\Sieve.h" />
+    <ClInclude Include="include\SundaramSieve.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AtkinSieve.cpp" />
-    <ClCompile Include="EratosthenesSieve.cpp" />
-    <ClCompile Include="EulerSieve.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="PritchardSieve.cpp" />
-    <ClCompile Include="Sieve.cpp" />
-    <ClCompile Include="SundaramSieve.cpp" />
+    <ClCompile Include="source\AtkinSieve.cpp" />
+    <ClCompile Include="source\EratosthenesSieve.cpp" />
+    <ClCompile Include="source\EulerSieve.cpp" />
+    <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="source\PritchardSieve.cpp" />
+    <ClCompile Include="source\Sieve.cpp" />
+    <ClCompile Include="source\SundaramSieve.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

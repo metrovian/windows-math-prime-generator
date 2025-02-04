@@ -16,42 +16,45 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Sieve.h">
+    <ClInclude Include="include\Sieve.h">
       <Filter>Sieve\Base</Filter>
     </ClInclude>
-    <ClInclude Include="EratosthenesSieve.h">
+    <ClInclude Include="include\EratosthenesSieve.h">
       <Filter>Sieve\Concrete</Filter>
     </ClInclude>
-    <ClInclude Include="EulerSieve.h">
+    <ClInclude Include="include\EulerSieve.h">
       <Filter>Sieve\Concrete</Filter>
     </ClInclude>
-    <ClInclude Include="AtkinSieve.h">
+    <ClInclude Include="include\AtkinSieve.h">
       <Filter>Sieve\Concrete</Filter>
     </ClInclude>
-    <ClInclude Include="PritchardSieve.h">
+    <ClInclude Include="include\PritchardSieve.h">
       <Filter>Sieve\Concrete</Filter>
     </ClInclude>
-    <ClInclude Include="SundaramSieve.h">
+    <ClInclude Include="include\SundaramSieve.h">
       <Filter>Sieve\Concrete</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Sieve.cpp">
+    <ClCompile Include="source\Sieve.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="source\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EratosthenesSieve.cpp">
+    <ClCompile Include="source\EratosthenesSieve.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EulerSieve.cpp">
+    <ClCompile Include="source\EulerSieve.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AtkinSieve.cpp">
+    <ClCompile Include="source\AtkinSieve.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PritchardSieve.cpp">
+    <ClCompile Include="source\PritchardSieve.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SundaramSieve.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
