@@ -9,4 +9,4 @@ Personal mathematical software to understand prime numbers in depth.
 - Sundaram sieve
 
 <br/></br>
-Copyright (c) 2024 Vian Lee [ MIT LICENSE ]
+Copyright (c) 2025 metrovian [ MIT LICENSE ]
