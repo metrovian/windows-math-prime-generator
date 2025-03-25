@@ -15,4 +15,23 @@
       <UniqueIdentifier>{d6cd5916-91b9-48bf-8887-1bf8dd285b78}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Primality.h">
+      <Filter>Primality Test\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Fermat.h">
+      <Filter>Primality Test\Concrete</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Primality.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Fermat.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
 </Project>
