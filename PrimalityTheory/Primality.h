@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include <set>
 #include <functional>
 
 enum class PRIMALITY_RESULT

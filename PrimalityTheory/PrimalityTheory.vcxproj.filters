@@ -22,6 +22,9 @@
     <ClInclude Include="Fermat.h">
       <Filter>Primality Test\Concrete</Filter>
     </ClInclude>
+    <ClInclude Include="Lucas.h">
+      <Filter>Primality Test\Concrete</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Primality.cpp">
@@ -31,6 +34,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Fermat.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Lucas.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
