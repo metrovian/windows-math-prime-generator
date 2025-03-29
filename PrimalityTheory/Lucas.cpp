@@ -65,7 +65,48 @@ std::set<uint64_t> Lucas::factor(uint64_t _num)
 
 PRIMALITY_RESULT Lucas::calc(uint64_t _base, uint64_t _num)
 {
-	return PRIMALITY_RESULT();
+    if (_num == 0 || _num == 1) return PRIMALITY_RESULT::FALSE;
+    if (_num == 2 || _num == 3) return PRIMALITY_RESULT::TRUE;
+
+    if (_num % 2 == 0) return PRIMALITY_RESULT::FALSE;
+
+	std::set<uint64_t> factors = factor(_num - 1);
+
+    auto func = [&](uint64_t _div)
+        {
+            uint64_t ret = 1;
+
+            uint64_t base = _base;
+            uint64_t exp = (_num - 1) / _div;
+
+            while (exp > 0)
+            {
+                if (exp % 2 == 1)
+                {
+                    ret = (ret * base) % _num;
+                }
+
+                base = (base * base) % _num;
+                exp /= 2;
+            }
+
+            return ret;
+        };
+
+    if (func(1) != 1)
+    {
+		return PRIMALITY_RESULT::FALSE;
+    }
+
+	for (auto div : factors)
+	{
+        if (func(div) == 1)
+        {
+            return PRIMALITY_RESULT::PROBABLY_FALSE;
+        }
+	}
+
+    return PRIMALITY_RESULT::TRUE;
 }
 
 PRIMALITY_TEST Lucas::test(uint64_t _base)
